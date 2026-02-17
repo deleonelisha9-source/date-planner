@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Date Planner</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #f4f4f9;
+  }
+  .container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 300px;
+    text-align: center;
+  }
+  .step {
+    display: none;
+    margin-top: 20px;
+  }
+  button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #45a049;
+  }
+  select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>Plan Your Date</h2>
+
+  <!-- Step 1: Place -->
+  <div class="step" id="step1">
+    <h3>Choose a place:</h3>
+    <select id="place">
+      <option value="Airbnb">Airbnb</option>
+      <option value="Cubao Expo">Cubao Expo</option>
+      <option value="Cubao Cineplex">Cubao Cineplex</option>
+      <option value="Picnic">Picnic</option>
+      <option value="Run errands (MMC-NU-Eat)">Run errands (MMC-NU-Eat)</option>
+    </select>
+    <button onclick="nextStep(2)">Next</button>
+  </div>
+
+  <!-- Step 2: Date -->
+  <div class="step" id="step2">
+    <h3>Choose a date:</h3>
+    <select id="date">
+      <option value="Feb 21">Feb 21</option>
+      <option value="Feb 22">Feb 22</option>
+      <option value="Feb 26">Feb 26</option>
+      <option value="Feb 28">Feb 28</option>
+    </select>
+    <button onclick="nextStep(3)">Next</button>
+  </div>
+
+  <!-- Step 3: Time -->
+  <div class="step" id="step3">
+    <h3>Choose a time:</h3>
+    <select id="time">
+      <option value="10AM-3PM">10AM-3PM</option>
+      <option value="9AM-4PM">9AM-4PM</option>
+      <option value="11AM-4PM">11AM-4PM</option>
+    </select>
+    <button onclick="nextStep(4)">Finish</button>
+  </div>
+
+  <!-- Step 4: Summary -->
+  <div class="step" id="step4">
+    <h3>Your Date Plan:</h3>
+    <p id="summary"></p>
+    <button onclick="restart()">Start Over</button>
+  </div>
+</div>
+
+<script>
+  let currentStep = 1;
+  document.getElementById('step1').style.display = 'block';
+
+  function nextStep(step) {
+    document.getElementById('step' + currentStep).style.display = 'none';
+    currentStep = step;
+
+    if(step === 4){
+      const place = document.getElementById('place').value;
+      const date = document.getElementById('date').value;
+      const time = document.getElementById('time').value;
+      document.getElementById('summary').innerText = `Place: ${place}\nDate: ${date}\nTime: ${time}`;
+    }
+
+    document.getElementById('step' + step).style.display = 'block';
+  }
+
+  function restart() {
+    document.getElementById('step4').style.display = 'none';
+    currentStep = 1;
+    document.getElementById('step1').style.display = 'block';
+  }
+</script>
+</body>
+</html>
